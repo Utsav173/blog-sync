@@ -1,6 +1,8 @@
 import { MyContextProvider } from "@/context";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { Analytics } from '@vercel/analytics/react';
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -92,7 +94,10 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <MyContextProvider>
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          {children}
+          <Analytics />
+        </body>
       </MyContextProvider>
     </html>
   );
