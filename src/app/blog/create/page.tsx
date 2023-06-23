@@ -21,7 +21,7 @@ const CreateBlog = () => {
   const checkItLoggedIn = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log('is Loogedin');
+        // console.log('is Loogedin');
         Cookies.set('userId', user.uid);
         Cookies.set('userData', JSON.stringify(user));
         return setIsLogin(true);
@@ -37,11 +37,11 @@ const CreateBlog = () => {
     if (!formData.get('title') || !content) {
       return alert('title is required');
     }
-    console.log({
-      title: formData.get('title'),
-      description: formData.get('description'),
-      content: content,
-    });
+    // console.log({
+    //   title: formData.get('title'),
+    //   description: formData.get('description'),
+    //   content: content,
+    // });
 
     await onAuthStateChanged(auth, async (user) => {
       if (user) {

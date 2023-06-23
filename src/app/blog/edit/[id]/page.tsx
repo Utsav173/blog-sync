@@ -22,7 +22,7 @@ const EditNote = ({ params }: { params: { id: string } }) => {
     const docSnapshot = await getDoc(docRef);
     setNoteData(docSnapshot.data());
     setEditContent(docSnapshot.data()?.content);
-    console.log(noteData);
+    // console.log(noteData);
   };
   useEffect(() => {
     getEditorData();
@@ -35,11 +35,11 @@ const EditNote = ({ params }: { params: { id: string } }) => {
     const title = formData.get('title')?.toString();
     const description = formData.get('description')?.toString();
     const content = editContent;
-    console.log({
-      title,
-      content,
-      description,
-    });
+    // console.log({
+    //   title,
+    //   content,
+    //   description,
+    // });
 
     if (Cookies.get('userId') == noteData?.authorId) {
       await updateDoc(noteRef, { title, content });

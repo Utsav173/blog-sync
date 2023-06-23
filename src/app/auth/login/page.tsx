@@ -48,11 +48,11 @@ const LoginPage = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         const email = error.customData.email;
-        console.log({
-          errorCode,
-          errorMessage,
-          email,
-        });
+        // console.log({
+        //   errorCode,
+        //   errorMessage,
+        //   email,
+        // });
         const credential = GoogleAuthProvider.credentialFromError(error);
         alert(errorMessage);
       });
