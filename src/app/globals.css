@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bleedBg {
+  padding-block: 1rem;
+  color: black;
+  background: #eeeeee;
+  box-shadow: 0 0 0 100vmax #eeeeee;
+  clip-path: inset(0 -100vmax);
+  padding-block: 2rem;
+}
+
+.textWarp {
+  text-warp: balance;
+  overflow-x: auto;
+}
+
+.opShadow {
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+}
