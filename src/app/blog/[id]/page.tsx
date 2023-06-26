@@ -1,3 +1,4 @@
+export const revalidate = 30;
 import DeleteComp from '@/components/DeleteComp';
 import { db } from '@/context/firebase';
 import { doc, getDoc } from 'firebase/firestore';
