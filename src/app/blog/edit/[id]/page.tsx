@@ -1,7 +1,14 @@
 'use client';
 import { modules } from '@/context/constant';
 import { db } from '@/context/firebase';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
@@ -14,38 +21,39 @@ import 'react-quill/dist/quill.snow.css';
 const EditNote = ({ params }: { params: { id: string } }) => {
   const [noteData, setNoteData] = useState<any>();
   const [editContent, setEditContent] = useState<any>(noteData?.content);
-  const id = params.id;
-  const docRef = doc(db, 'blogs', id as string);
+  const slug: string = params.id;
+
   const router = useRouter();
 
-  const getEditorData = async () => {
-    const docSnapshot = await getDoc(docRef);
-    setNoteData(docSnapshot.data());
-    setEditContent(docSnapshot.data()?.content);
-    // console.log(noteData);
+  const getEditableData = async () => {
+    const querySnapshot = await getDocs(
+      query(collection(db, 'blogs'), where('slug', '==', slug))
+    );
+    const docSnapshot = querySnapshot.docs[0].data();
+    setNoteData({
+      id: querySnapshot.docs[0].id,
+      ...docSnapshot,
+    });
+    setEditContent(docSnapshot?.content);
   };
+
   useEffect(() => {
-    getEditorData();
+    getEditableData();
   }, []);
 
   const handleUpdate = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const noteRef = await doc(db, 'blogs', id);
+    const noteRef = await doc(db, 'blogs', noteData.id);
     const title = formData.get('title')?.toString();
     const description = formData.get('description')?.toString();
     const content = editContent;
-    // console.log({
-    //   title,
-    //   content,
-    //   description,
-    // });
-
+    const slugD = slugify(title as string, { lower: true, remove: /[$*_+~.(),'"!:@]/g, trim: true, }) || slug;
     if (Cookies.get('userId') == noteData?.authorId) {
-      await updateDoc(noteRef, { title, content });
-      router.prefetch(`/blog/${id}`);
+      await updateDoc(noteRef, { title, content, description, slug: slugD });
+      router.prefetch(`/blog/${slugD}`);
       alert('update successfully');
-      router.push(`/blog/${id}`);
+      router.push(`/blog/${slugD}`);
     } else {
       alert('not your blog');
     }

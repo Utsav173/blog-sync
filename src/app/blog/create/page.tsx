@@ -34,14 +34,10 @@ const CreateBlog = () => {
   const addDocTof = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    if (!formData.get('title') || !content) {
+    const titleData = formData.get('title') || '';
+    if (!titleData || !content) {
       return alert('title is required');
     }
-    // console.log({
-    //   title: formData.get('title'),
-    //   description: formData.get('description'),
-    //   content: content,
-    // });
 
     await onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -54,6 +50,12 @@ const CreateBlog = () => {
           createdAt: serverTimestamp(),
           author: user.displayName || user.email,
           authorId: userId,
+          slug: slugify(titleData as string, {
+            lower: true,
+            remove: /[$*_+~.(),'"!:@]/g,
+            trim: true,
+            replacement: '-',
+          }),
         })
           .then(() => {
             console.log('Document successfully written!');
