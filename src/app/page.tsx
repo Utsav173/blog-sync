@@ -1,3 +1,4 @@
+export const revalidate = 30;
 import Hemder from '@/components/Hemder';
 import SIngleBlog from '@/components/SIngleBlog';
 import { db } from '@/context/firebase';
