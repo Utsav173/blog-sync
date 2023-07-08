@@ -1,13 +1,9 @@
-export const revalidate = 30;
+export const revalidate = 60;
+import CommentSec from '@/components/CommentSec';
 import DeleteComp from '@/components/DeleteComp';
+import RatingBlog from '@/components/RatingBlog';
 import { db } from '@/context/firebase';
-import {
-  collection,
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-} from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { Parser } from 'html-to-react';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
@@ -35,9 +31,9 @@ const SingleNote = async ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <div className="py-10 px-6 max-sm:px-3 pt-0">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-6 bleedBg">
+    <div className="py-10 px-6 max-sm:px-3 pt-0" suppressHydrationWarning>
+      <div className="porse max-w-5xl mx-auto">
+        <div className="flex py-5 bg-blend-saturation items-center justify-between mb-6 bleedBg">
           <h1 className="text-3xl font-bold">{noteData?.title}</h1>
           <div className="flex gap-2">
             {cookies().get('userId')?.value == noteData?.authorId && (
@@ -56,9 +52,11 @@ const SingleNote = async ({ params }: { params: { id: string } }) => {
         <p className="text-gray-500 mb-8">
           {noteData?.createdAt.toDate().toDateString()}
         </p>
-        <div className="prose prose-zinc max-sm:prose-base contents textWarp">
+        <RatingBlog Id={noteData.id} />
+        <article className="prose prose-zinc max-sm:prose-base contents textWarp">
           {Parser().parse(noteData?.content)}
-        </div>
+        </article>
+        <CommentSec blogId={noteData?.id} />
       </div>
     </div>
   );

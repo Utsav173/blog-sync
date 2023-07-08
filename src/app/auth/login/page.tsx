@@ -1,7 +1,6 @@
 'use client';
 import { auth, provider } from '@/context/firebase';
 import {
-  GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth';
@@ -11,10 +10,7 @@ import { useRouter } from 'next/navigation';
 import React, { FormEvent } from 'react';
 const LoginPage = () => {
   const router = useRouter();
-  const LoginUser = async (
-    event: FormEvent<HTMLFormElement>,
-    formData: FormData
-  ) => {
+  const LoginUser = async (event: FormEvent<HTMLFormElement>, formData: FormData) => {
     event.preventDefault();
     const email: string = formData.get('email')?.toString() ?? '';
     const password: string = formData.get('password')?.toString() ?? '';
@@ -37,23 +33,13 @@ const LoginPage = () => {
   const signinWithGooglePopup = () =>
     signInWithPopup(auth, provider)
       .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
         const user = result.user;
         Cookies.set('userId', user.uid);
         Cookies.set('userData', JSON.stringify(user));
         router.push('/');
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
-        const email = error.customData.email;
-        // console.log({
-        //   errorCode,
-        //   errorMessage,
-        //   email,
-        // });
-        const credential = GoogleAuthProvider.credentialFromError(error);
         alert(errorMessage);
       });
   return (

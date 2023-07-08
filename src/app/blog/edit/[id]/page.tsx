@@ -19,7 +19,6 @@ const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
 import slugify from 'slugify';
 
-
 const EditNote = ({ params }: { params: { id: string } }) => {
   const [noteData, setNoteData] = useState<any>();
   const [editContent, setEditContent] = useState<any>(noteData?.content);
@@ -79,7 +78,6 @@ const EditNote = ({ params }: { params: { id: string } }) => {
           defaultValue={noteData?.description}
           className="px-4 py-2  border border-gray-600 rounded-lg"
         />
-
         <ReactQuill
           theme="snow"
           value={editContent}

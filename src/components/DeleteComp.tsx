@@ -19,7 +19,7 @@ const DeleteComp = ({ id, authorId }: any) => {
     if (Cookies.get('userId') == auhtorId) {
       await deleteDoc(delRef)
         .then(() => {
-          console.log('book deleted successfully');
+          // console.log('book deleted successfully');
           router.prefetch('/');
           router.push('/');
         })

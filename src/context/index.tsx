@@ -11,11 +11,10 @@ export const MyContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
-
   const checkItLoggedIn = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log('is Loogedin');
+        // console.log('is Loogedin');
         Cookies.set('userId', user.uid);
         Cookies.set('userData', JSON.stringify(user));
         setIsLogin(true);

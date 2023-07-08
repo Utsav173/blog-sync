@@ -22,7 +22,6 @@ const CreateBlog = () => {
   const checkItLoggedIn = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // console.log('is Loogedin');
         Cookies.set('userId', user.uid);
         Cookies.set('userData', JSON.stringify(user));
         return setIsLogin(true);
@@ -59,7 +58,7 @@ const CreateBlog = () => {
           }),
         })
           .then(() => {
-            console.log('Document successfully written!');
+            // console.log('Document successfully written!');
             router.prefetch('/');
             router.push('/');
             alert('Document successfully written!');

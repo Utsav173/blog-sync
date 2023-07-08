@@ -9,17 +9,13 @@ import { useRouter } from 'next/navigation';
 import { useContext, useEffect, useState } from 'react';
 
 export default function Navbar() {
-  const { setIsLogin, isLogin } = useContext(MyContext);
-
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [userData, setUserData] = useState<any | undefined>();
-  const toggleProfilePopup = () => {
-    setIsProfileOpen(!isProfileOpen);
-  };
+  const { setIsLogin } = useContext(MyContext);
+  const [userData, setUserData] = useState<any>(undefined);
   useEffect(() => {
-    const userData = Cookies.get('userData');
-    if (userData !== undefined) {
-      setUserData(JSON.parse(userData));
+    if (Cookies.get('userData')! != undefined) {
+      setUserData(JSON.parse(Cookies.get('userData')!));
+    } else {
+      setUserData(undefined);
     }
   }, []);
 
@@ -27,10 +23,9 @@ export default function Navbar() {
   const handleLogout = async () => {
     await signOut(auth)
       .then(() => {
-        setIsProfileOpen(false);
         setIsLogin(false);
         setUserData(undefined);
-        console.log('logout');
+        // console.log('logout');
         router.refresh();
         Cookies.remove('userId');
         Cookies.remove('userData');
@@ -42,9 +37,55 @@ export default function Navbar() {
       });
   };
 
+  const changeTheme = () => {
+    const randomTheme = [
+      'light',
+      'dark',
+      'cupcake',
+      'bumblebee',
+      'emerald',
+      'corporate',
+      'synthwave',
+      'retro',
+      'cyberpunk',
+      'valentine',
+      'halloween',
+      'garden',
+      'forest',
+      'aqua',
+      'lofi',
+      'pastel',
+      'fantasy',
+      'wireframe',
+      'black',
+      'luxury',
+      'dracula',
+      'cmyk',
+      'autumn',
+      'business',
+      'acid',
+      'lemonade',
+      'night',
+      'coffee',
+      'winter',
+    ];
+
+    const currentTheme = document.documentElement.dataset.theme;
+    const randomIndex = Math.floor(Math.random() * randomTheme.length);
+    const randomThemeName = randomTheme[randomIndex];
+
+    if (currentTheme === randomThemeName) {
+      // If the random theme is the same as the current theme, choose a different one
+      const nextRandomIndex = (randomIndex + 1) % randomTheme.length;
+      document.documentElement.dataset.theme = randomTheme[nextRandomIndex];
+    } else {
+      document.documentElement.dataset.theme = randomThemeName;
+    }
+  };
+
   return (
     <div className="flex items-center justify-between">
-      <h2 className="font-semibold text-slate-900 flex items-center">
+      <h2 className="font-semibold flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -61,63 +102,64 @@ export default function Navbar() {
         </svg>
         BlogSync
       </h2>
-      <div className="flex gap-3">
-        <Link
-          href={'/blog/create'}
-          className="flex items-center rounded-md bg-blue-500 text-white text-sm font-medium pl-2 pr-3 py-2 shadow-sm focus:outline-none"
-        >
-          <svg
-            width="20"
-            height="20"
-            fill="currentColor"
-            className="mr-2"
-            aria-hidden="true"
-          >
-            <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z" />
-          </svg>
-          Create New
-        </Link>
-        {(isLogin || userData) && (
-          <div className="relative">
-            <button
-              className="rounded-md bg-[#dcffe5] px-3 py-2"
-              onClick={toggleProfilePopup}
-            >
-              Profile
-            </button>
-            {isProfileOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-                <div className="py-2 px-4">
-                  <div className="flex items-center gap-4">
-                    {(userData.photoURL != undefined ||
-                      userData.photoURL != null) && (
-                      <Image
-                        width={100}
-                        height={100}
-                        alt="Profile"
-                        src={userData.photoURL}
-                        className="w-8 h-8 rounded-full"
-                      />
-                    )}
+      <div className="dropdown dropdown-end dropdown-hover">
+        <label tabIndex={0} className="btn m-1">
+          Menu
+        </label>
 
-                    <div className="flex flex-col justify-start items-start gap-1">
-                      <p className="text-sm font-medium text-gray-800">
-                        {userData.displayName}
-                      </p>
-                      <p className="text-xs text-gray-600">{userData.email}</p>
-                      <button
-                        onClick={handleLogout}
-                        className="bg-red-600 text-white px-3 rounded"
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
+        <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-56 space-y-2">
+          <li>
+            <button
+              onClick={changeTheme}
+              className="btn btn-sm w-full text-left"
+            >
+              Change Theme
+            </button>
+          </li>
+          <li>
+            <Link href="/blog/create" className="btn btn-sm">
+              Create New
+            </Link>
+          </li>
+          {userData !== undefined && (
+            <>
+              <li>
+                <details>
+                  <summary className="btn btn-sm w-full text-left">
+                    Profile
+                  </summary>
+                  <ul className="space-y-1">
+                    <li>
+                      <div className="flex items-center">
+                        {userData != undefined && (
+                          <Image
+                            width={50}
+                            height={50}
+                            alt="Profile"
+                            src={userData?.photoURL}
+                            className="rounded-full h-7 w-7 object-fill"
+                          />
+                        )}
+                        <p>{userData.displayName}</p>
+                      </div>
+                    </li>
+                    <li>
+                      <p>{userData.email}</p>
+                    </li>
+                  </ul>
+                </details>
+              </li>
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-600 text-white px-3 rounded"
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+          )}
+        </ul>
       </div>
     </div>
   );

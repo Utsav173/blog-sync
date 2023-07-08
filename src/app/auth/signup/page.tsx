@@ -17,7 +17,6 @@ const SignUpPage = () => {
 
     await createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
-        // console.log(res);
         router.prefetch('/auth/login');
         alert('use signined');
         router.push('/auth/login');
