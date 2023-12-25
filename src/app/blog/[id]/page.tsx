@@ -1,4 +1,3 @@
-export const revalidate = 60;
 import CommentSec from '@/components/CommentSec';
 import DeleteComp from '@/components/DeleteComp';
 import RatingBlog from '@/components/RatingBlog';
@@ -8,12 +7,35 @@ import { Parser } from 'html-to-react';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { AiOutlineEdit } from 'react-icons/ai';
+import { Metadata } from 'next';
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  // read route params
+  const id = params.id;
+
+  const querySnapshot = await getDocs(
+    query(collection(db, 'blogs'), where('slug', '==', id))
+  );
+  if (querySnapshot.empty) {
+    return {
+      title: 'Blog Not Found',
+    };
+  } else {
+    return {
+      title: querySnapshot.docs[0].data().title,
+      description: querySnapshot.docs[0].data().content.slice(0, 25),
+    };
+  }
+}
 const SingleNote = async ({ params }: { params: { id: string } }) => {
   const slug = params.id;
-  const blogsRef = collection(db, 'blogs');
-  const q = query(blogsRef, where('slug', '==', slug));
-  const querySnapshot = await getDocs(q);
+  const querySnapshot = await getDocs(
+    query(collection(db, 'blogs'), where('slug', '==', slug))
+  );
 
   if (querySnapshot.empty) {
     return (
