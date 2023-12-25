@@ -2,12 +2,11 @@
 
 import { LoginUser } from "@/context/func";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Suspense } from "react";
 
 const LoginPage = () => {
   const { push } = useRouter();
-  const searchParams = useSearchParams();
   const handleSubmit = async (formData: FormData) => {
     try {
       const response = await LoginUser(formData);

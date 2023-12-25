@@ -1,11 +1,11 @@
-import './globals.css';
-import { Inter } from 'next/font/google';
+import "./globals.css";
+import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: 'BlogSync',
-  description: 'app created using next js firebase',
+  title: "BlogSync",
+  description: "app created using next js firebase",
 };
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-theme="light">
-            <head>
+      <head>
         <link
           rel="apple-touch-icon"
           sizes="57x57"
