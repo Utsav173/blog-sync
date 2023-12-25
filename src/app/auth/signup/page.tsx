@@ -1,39 +1,23 @@
 'use client';
-import { auth } from '@/context/firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { SignUpUser } from '@/context/func';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FormEvent } from 'react';
 
 const SignUpPage = () => {
-  const router = useRouter();
-  const SignUpUser = async (
-    event: FormEvent<HTMLFormElement>,
-    formData: FormData
-  ) => {
-    event.preventDefault();
-    const email: string = formData.get('email')?.toString() ?? '';
-    const password: string = formData.get('password')?.toString() ?? '';
-
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        router.prefetch('/auth/login');
-        alert('use signined');
-        router.push('/auth/login');
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(error);
-      });
+  const {push } = useRouter();
+  const handleSubmit = async (formData: FormData) => {
+    const res = await SignUpUser(formData);
+    if (res?.error) {
+      alert(res.error);
+    } else {
+      push('/auth/login');
+    }
   };
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="p-6 rounded-lg bg-gray-100">
         <h2 className="text-3xl font-bold mb-4">Sign Up</h2>
-        <form
-          className="flex flex-col gap-4"
-          onSubmit={(e) => SignUpUser(e, new FormData(e.currentTarget))}
-        >
+        <form className="flex flex-col gap-4" action={handleSubmit}>
           <input
             type="email"
             name="email"

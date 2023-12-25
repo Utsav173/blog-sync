@@ -1,7 +1,7 @@
 export const toolbarOptions = [
   ['bold', 'italic', 'underline', 'strike'], // toggled buttons
   ['blockquote', 'code-block'],
-  ['link', 'image', 'video'],
+  ['link', 'image'],
   [{ header: 1 }, { header: 2 }], // custom button values
   [{ list: 'ordered' }, { list: 'bullet' }],
   [{ script: 'sub' }, { script: 'super' }], // superscript/subscript

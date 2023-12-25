@@ -1,15 +1,10 @@
 'use client';
-import MyContext from '@/context';
-import { auth } from '@/context/firebase';
-import { signOut } from 'firebase/auth';
 import Cookies from 'js-cookie';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Navbar() {
-  const { setIsLogin } = useContext(MyContext);
   const [userData, setUserData] = useState<any>(undefined);
   useEffect(() => {
     if (Cookies.get('userData')! != undefined) {
@@ -21,20 +16,12 @@ export default function Navbar() {
 
   const router = useRouter();
   const handleLogout = async () => {
-    await signOut(auth)
-      .then(() => {
-        setIsLogin(false);
-        setUserData(undefined);
-        // console.log('logout');
-        router.refresh();
-        Cookies.remove('userId');
-        Cookies.remove('userData');
-        alert('logout successfully');
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(error);
-      });
+    setUserData(undefined);
+    // console.log('logout');
+    router.refresh();
+    Cookies.remove('userId');
+    Cookies.remove('userData');
+    alert('logout successfully');
   };
 
   const changeTheme = () => {
@@ -119,16 +106,7 @@ export default function Navbar() {
                   <ul className="space-y-1">
                     <li>
                       <div className="flex items-center">
-                        {userData != undefined && (
-                          <Image
-                            width={50}
-                            height={50}
-                            alt="Profile"
-                            src={userData?.photoURL}
-                            className="rounded-full h-7 w-7 object-fill"
-                          />
-                        )}
-                        <p>{userData.displayName}</p>
+                        <p>{userData.name}</p>
                       </div>
                     </li>
                     <li>

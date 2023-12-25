@@ -1,17 +1,24 @@
 import Hemder from '@/components/Hemder';
 import SIngleBlog from '@/components/SIngleBlog';
-import { db } from '@/context/firebase';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { sql } from '@/context/func';
 const getBlogsData = async () => {
   try {
-    const notesRef = collection(db, 'blogs');
-    const notesQuery = query(notesRef, orderBy('createdAt'));
-    const querySnapshot = await getDocs(notesQuery);
-    const notesData = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    return notesData;
+    await sql`CREATE TABLE IF NOT EXISTS blogs (
+      id TEXT PRIMARY KEY,
+      title TEXT,
+      content TEXT,
+      description TEXT,
+      slug TEXT,
+      author TEXT,
+      "authorId" TEXT,
+      "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )`;
+
+    const response = await sql(
+      'SELECT b.id, b.title, b.description, b.author, b.slug, b."createdAt" FROM public.blogs as b'
+    );
+
+    return response;
   } catch (error) {
     console.error('Error retrieving notes data:', error);
     return [];
@@ -19,11 +26,9 @@ const getBlogsData = async () => {
 };
 export default async function Home() {
   const blogsData = await getBlogsData();
-
   return (
     <section>
       <Hemder blogsData={JSON.stringify(blogsData)} />
-
       <div className="p-4 sm:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 text-sm leading-6">
         {blogsData.length ? (
           blogsData?.map((blog: any) => (

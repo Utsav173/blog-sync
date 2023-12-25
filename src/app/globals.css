@@ -2,15 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-.bleedBg {
-  padding-block: 1rem;
-  color: black;
-  background: #eeeeee;
-  box-shadow: 0 0 0 100vmax #eeeeee;
-  clip-path: inset(0 -100vmax);
-  padding-block: 2rem;
+/* Customize the scrollbar */
+::-webkit-scrollbar {
+  width: 0.5rem;
+  background: #00000000;
 }
 
+/* Customize the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  height: 0.5rem;
+  width: 0.5rem;
+  background: linear-gradient(135deg, #bdbdbd, #cecece);
+  border: none;
+  box-shadow: inset 2px 2px 2px #cecece, inset -2px -2px 2px #bdbdbd;
+}
+
+/* Customize the scrollbar track */
+::-webkit-scrollbar-track {
+  background: #ffffff00;
+}
+
+.textWarp {
+  text-warp: balance;
+  overflow-x: auto;
+}
 
 .opShadow {
   box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;

@@ -1,43 +1,46 @@
-import CommentSec from '@/components/CommentSec';
-import DeleteComp from '@/components/DeleteComp';
-import RatingBlog from '@/components/RatingBlog';
-import { db } from '@/context/firebase';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+export const dynamic = 'force-static';
+
+import dynamicImport from 'next/dynamic';
 import { Parser } from 'html-to-react';
-import { cookies } from 'next/headers';
+import Cookies from 'js-cookie';
 import Link from 'next/link';
-import { AiOutlineEdit } from 'react-icons/ai';
 import { Metadata } from 'next';
+import { neon } from '@neondatabase/serverless';
+import { AiOutlineEdit } from 'react-icons/ai';
+import { Suspense } from 'react';
+
+const CommentSec = dynamicImport(() => import('@/components/CommentSec'));
+const DeleteComp = dynamicImport(() => import('@/components/DeleteComp'));
+
+const sql = neon(process.env.NEXT_PUBLIC_DATABASE_URL as string);
 
 export async function generateMetadata({
   params,
 }: {
   params: { id: string };
 }): Promise<Metadata> {
-  // read route params
-  const id = params.id;
-
-  const querySnapshot = await getDocs(
-    query(collection(db, 'blogs'), where('slug', '==', id))
+  const blogData = await sql(
+    'SELECT b.title, b.description FROM blogs as b WHERE b.slug = $1',
+    [params.id]
   );
-  if (querySnapshot.empty) {
+
+  if (blogData.length === 0) {
     return {
       title: 'Blog Not Found',
     };
   } else {
     return {
-      title: querySnapshot.docs[0].data().title,
-      description: querySnapshot.docs[0].data().content.slice(0, 25),
+      title: blogData[0].title,
+      description: blogData[0].description.slice(0, 40),
     };
   }
 }
-const SingleNote = async ({ params }: { params: { id: string } }) => {
-  const slug = params.id;
-  const querySnapshot = await getDocs(
-    query(collection(db, 'blogs'), where('slug', '==', slug))
-  );
 
-  if (querySnapshot.empty) {
+const Page = async ({ params }: { params: { id: string } }) => {
+  const id = params.id;
+  const blogData = await sql('SELECT * FROM blogs WHERE slug = $1', [id]);
+
+  if (blogData.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
         <p className="text-2xl text-[#282828] font-semibold">
@@ -47,41 +50,40 @@ const SingleNote = async ({ params }: { params: { id: string } }) => {
     );
   }
 
-  const noteData: any = {
-    id: querySnapshot.docs[0].id,
-    ...querySnapshot.docs[0].data(),
-  };
-
   return (
-    <div className="py-10 px-6 max-sm:px-3 pt-0" suppressHydrationWarning>
-      <div className="porse max-w-5xl mx-auto">
-        <div className="flex py-5 bg-blend-saturation items-center justify-between mb-6 bleedBg">
-          <h1 className="text-3xl font-bold">{noteData?.title}</h1>
-          <div className="flex gap-2">
-            {cookies().get('userId')?.value == noteData?.authorId && (
-              <>
-                <Link
-                  href={`/blog/edit/${slug}`}
-                  className="text-[#5d95ff] hover:text-[#0389ff]"
-                >
-                  <AiOutlineEdit className="h-5 w-5" />
-                </Link>
-                <DeleteComp id={noteData?.id} authorId={noteData?.authorId} />
-              </>
-            )}
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="py-10 px-6 max-sm:px-3 pt-0" suppressHydrationWarning>
+        <div className="porse max-w-5xl mx-auto">
+          <div className="flex py-5 bg-blend-saturation items-center justify-between mb-6 bleedBg">
+            <h1 className="text-3xl font-bold">{blogData[0]?.title}</h1>
+            <div className="flex gap-2">
+              {Cookies.get('userId') == blogData[0]?.authorId && (
+                <>
+                  <Link
+                    href={`/blog/edit/${blogData[0].id}`}
+                    className="text-[#5d95ff] hover:text-[#0389ff]"
+                  >
+                    <AiOutlineEdit className="h-5 w-5" />
+                  </Link>
+                  <DeleteComp
+                    id={blogData[0].id}
+                    authorId={blogData[0]?.authorId}
+                  />
+                </>
+              )}
+            </div>
           </div>
-        </div>{' '}
-        <p className="text-gray-500 mb-8">
-          {noteData?.createdAt.toDate().toDateString()}
-        </p>
-        <RatingBlog Id={noteData.id} />
-        <article className="prose prose-zinc max-sm:prose-base contents textWarp">
-          {Parser().parse(noteData?.content)}
-        </article>
-        <CommentSec blogId={noteData?.id} />
+          <p className="text-gray-500 mb-8">
+            {new Date(+blogData[0]?.createdAt).toDateString()}
+          </p>
+          <article className="prose prose-zinc max-sm:prose-base contents textWarp">
+            {Parser().parse(blogData[0]?.content)}
+          </article>
+          <CommentSec blogId={blogData[0]?.id} />
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 };
 
-export default SingleNote;
+export default Page;
