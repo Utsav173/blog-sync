@@ -43,9 +43,11 @@ const Page = async ({ params }: { params: { id: string } }) => {
   if (blogData.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
+<Link href="/">
         <p className="text-2xl text-[#282828] font-semibold">
           🔍 Blog Not Found
         </p>
+</Link>
       </div>
     );
   }
