@@ -10,9 +10,9 @@ const nextConfig = {
       },
     ],
   },
- experimental: {
-   ppr: true,
- },
+  experimental: {
+    ppr: true,
+  },
 };
 
 module.exports = nextConfig;
