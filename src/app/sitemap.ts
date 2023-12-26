@@ -8,7 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const blogs = blogsData.map((blog: any) => {
     return {
-      url: `https://blog-sync.vercel.app/${blog.slug}`,
+      url: `https://blog-sync.vercel.app/blog/${blog.slug}`,
       lastModified: new Date(blog.createdAt),
     };
   });
