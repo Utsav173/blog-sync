@@ -1,5 +1,3 @@
-export const dynamic = 'force-static';
-
 import dynamicImport from 'next/dynamic';
 import { Parser } from 'html-to-react';
 import { cookies } from 'next/headers';
@@ -44,9 +42,11 @@ const Page = async ({ params }: { params: { id: string } }) => {
   if (blogData.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <p className="text-2xl text-[#282828] font-semibold">
-          🔍 Blog Not Found
-        </p>
+        <Link href="/">
+          <p className="text-2xl text-[#282828] font-semibold">
+            🔍 Blog Not Found
+          </p>
+        </Link>
       </div>
     );
   }
