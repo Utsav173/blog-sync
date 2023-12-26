@@ -1,6 +1,13 @@
 import Hemder from '@/components/Hemder';
 import SIngleBlog from '@/components/SIngleBlog';
 import { sql } from '@/context/func';
+
+export const getAllBlogs = async () => {
+  return await sql(
+    'SELECT b.id, b.title, b.description, b.author, b.slug, b."createdAt" FROM public.blogs as b'
+  );
+}
+
 const getBlogsData = async () => {
   try {
     await sql`CREATE TABLE IF NOT EXISTS blogs (
@@ -14,9 +21,7 @@ const getBlogsData = async () => {
       "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )`;
 
-    const response = await sql(
-      'SELECT b.id, b.title, b.description, b.author, b.slug, b."createdAt" FROM public.blogs as b'
-    );
+    const response = await getAllBlogs()
 
     return response;
   } catch (error) {
