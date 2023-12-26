@@ -1,8 +1,8 @@
-
+export const dynamic = 'force-static';
 
 import dynamicImport from 'next/dynamic';
 import { Parser } from 'html-to-react';
-import Cookies from 'js-cookie';
+import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { neon } from '@neondatabase/serverless';
@@ -38,16 +38,15 @@ export async function generateMetadata({
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
+
   const blogData = await sql('SELECT * FROM blogs WHERE slug = $1', [id]);
 
   if (blogData.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
-<Link href="/">
         <p className="text-2xl text-[#282828] font-semibold">
           🔍 Blog Not Found
         </p>
-</Link>
       </div>
     );
   }
@@ -59,7 +58,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           <div className="flex py-5 bg-blend-saturation items-center justify-between mb-6 bleedBg">
             <h1 className="text-3xl font-bold">{blogData[0]?.title}</h1>
             <div className="flex gap-2">
-              {Cookies.get('userId') == blogData[0]?.authorId && (
+              {cookies().get('userId')?.value == blogData[0]?.authorId && (
                 <>
                   <Link
                     href={`/blog/edit/${blogData[0].id}`}

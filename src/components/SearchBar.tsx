@@ -44,7 +44,7 @@ const SearchBar = ({ blogsData }: { blogsData: any }) => {
             filteredBlogs.map((blog: any) => (
               <div key={blog.id} className="mb-4">
                 <Link
-                  href={`/blog/${blog.id}`}
+                  href={`/blog/${blog.slug}`}
                   className="text-blue-600 hover:underline"
                 >
                   <h2 className="text-lg font-medium">{blog.title}</h2>
