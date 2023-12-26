@@ -89,7 +89,7 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
         <meta name="theme-color" content="#ffffff" />
-        {/* <meta name="google-site-verification" content="Em_zt2od4jdfF4FGIcpf3k42JWy1GJqCsgeFXoieZfw" /> */}
+        <meta name="google-site-verification" content="Em_zt2od4jdfF4FGIcpf3k42JWy1GJqCsgeFXoieZfw" />
         <meta name="google-site-verification" content="1DlsTp-e9idAppVprIvG2cqHBKrwN6u6WqEbhuxXMB0" />
       </head>
       <body className={inter.className}>{children}</body>
