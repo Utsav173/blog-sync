@@ -1,4 +1,4 @@
-export const dynamic = 'force-static';
+export const dynamic = 'auto';
 
 import dynamicImport from 'next/dynamic';
 import { Parser } from 'html-to-react';
