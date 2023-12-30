@@ -1,42 +1,36 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from "next";
 
-const inter = Inter({ subsets: ['latin'] });
-
+const inter = Inter({ subsets: ["latin"] });
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
 export const metadata: Metadata = {
-  title: 'BlogSync',
+  metadataBase: new URL("https://blog-sync.vercel.app"),
+  title: "BlogSync",
   description:
-    'BlogSync is blogging platform that uses Next.js and provide information and tutorials on different topics.',
+    "BlogSync is blogging platform that uses Next.js and provide information and tutorials on different topics.",
   verification: {
-    google: '4b4H3hr3KG4V1J6eRzWhNZDf84yIPAcR1x32o0EpF8U',
+    google: "4b4H3hr3KG4V1J6eRzWhNZDf84yIPAcR1x32o0EpF8U",
   },
   icons: {
-    icon: '/favicon-96x96.png',
-    shortcut: '/favicon-32x32.png',
-    apple: '/apple-icon-60x60.png',
-  },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
+    icon: "/favicon-96x96.png",
+    shortcut: "/favicon-32x32.png",
+    apple: "/apple-icon-60x60.png",
   },
   keywords: [
-    'blog',
-    'nextjs',
-    'blog-sync',
-    'blog-sync-cricket',
-    'blog-sync-football',
-    'blog-sync-step-by-step',
+    "blog",
+    "nextjs",
+    "blog-sync",
+    "blog-sync-cricket",
+    "blog-sync-football",
+    "blog-sync-step-by-step",
   ],
   openGraph: {
-    images: [
-      {
-        url: '/android-icon-192x192.png',
-        width: 1200,
-        height: 630,
-      },
-    ],
+    images: "/android-icon-192x192.png",
   },
 };
 
@@ -121,7 +115,10 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
         <meta name="theme-color" content="#ffffff" />
-        <meta name="google-site-verification" content="4b4H3hr3KG4V1J6eRzWhNZDf84yIPAcR1x32o0EpF8U" />
+        <meta
+          name="google-site-verification"
+          content="4b4H3hr3KG4V1J6eRzWhNZDf84yIPAcR1x32o0EpF8U"
+        />
       </head>
       <body className={inter.className}>{children}</body>
     </html>

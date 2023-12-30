@@ -18,14 +18,12 @@ module.exports = {
   daisyui: {
     themes: [
       'light',
-      'dark',
       'cupcake',
       'bumblebee',
       'emerald',
       'corporate',
-      'valentine',
+      'cyberpunk',
       'garden',
-      'forest',
       'lofi',
       'pastel',
       'fantasy',
@@ -33,10 +31,9 @@ module.exports = {
       'black',
       'cmyk',
       'autumn',
-      'business',
       'acid',
       'lemonade',
-      'winter',
+      'winter'
     ], // true: all themes | false: only light + dark | array: specific themes like this ["light", "dark", "cupcake"]
     darkTheme: 'black', // name of one of the included themes for dark mode
     base: true, // applies background color and foreground color for root element by default
