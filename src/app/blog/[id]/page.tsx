@@ -30,6 +30,11 @@ export async function generateMetadata({
     return {
       title: blogData[0].title,
       description: blogData[0].description.slice(0, 40),
+      openGraph: {
+        title: blogData[0].title,
+        description: blogData[0].description.slice(0, 50),
+      },
+      keywords: blogData[0].title.split(' ').join(','),
     };
   }
 }

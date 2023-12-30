@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://blog-sync.vercel.app"),
   title: "BlogSync",
   description:
-    "BlogSync is blogging platform that uses Next.js and provide information and tutorials on different topics.",
+    "Explore comprehensive tech and gaming tutorials on BlogSync, a Next.js-powered blogging platform. Learn step-by-step installation guides and discover unique content on various topics.",
   verification: {
     google: "4b4H3hr3KG4V1J6eRzWhNZDf84yIPAcR1x32o0EpF8U",
   },
@@ -28,6 +28,16 @@ export const metadata: Metadata = {
     "blog-sync-cricket",
     "blog-sync-football",
     "blog-sync-step-by-step",
+    "blog-sync-cricket-07",
+    "blog sync utsav khatri",
+    "amazing install step to install cricket 07",
+    "tech tutorials",
+    "gaming tutorials",
+    "installation guides",
+    "step-by-step tutorials",
+    "cricket 07 installation",
+    "gaming installation guides",
+    "unique content",
   ],
   openGraph: {
     images: "/android-icon-192x192.png",
