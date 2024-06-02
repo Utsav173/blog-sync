@@ -1,0 +1,4 @@
+{
+  "buildCommand": "echo build",
+  "installCommand": "npm install"
+}
