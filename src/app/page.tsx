@@ -27,7 +27,7 @@ const getBlogsData = async () => {
 export default async function Home() {
   const blogsData = await getBlogsData();
   return (
-    <section>
+    <section suppressHydrationWarning>
       <Hemder blogsData={JSON.stringify(blogsData)} />
       <div className="p-4 sm:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 text-sm leading-6">
         {blogsData.length ? (

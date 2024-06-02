@@ -1,14 +1,17 @@
-import dynamicImport from 'next/dynamic';
-import { Parser } from 'html-to-react';
-import { cookies } from 'next/headers';
-import Link from 'next/link';
-import { Metadata } from 'next';
-import { neon } from '@neondatabase/serverless';
-import { AiOutlineEdit } from 'react-icons/ai';
-import { Suspense } from 'react';
+import dynamicImport from "next/dynamic";
+import { Parser } from "html-to-react";
+import { cookies } from "next/headers";
+import Link from "next/link";
+import { Metadata } from "next";
+import { neon } from "@neondatabase/serverless";
+import { AiOutlineEdit } from "react-icons/ai";
+import { Suspense } from "react";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
-const CommentSec = dynamicImport(() => import('@/components/CommentSec'));
-const DeleteComp = dynamicImport(() => import('@/components/DeleteComp'));
+export const experimental_ppr = true;
+
+const CommentSec = dynamicImport(() => import("@/components/CommentSec"));
+const DeleteComp = dynamicImport(() => import("@/components/DeleteComp"));
 
 const sql = neon(process.env.NEXT_PUBLIC_DATABASE_URL as string);
 
@@ -18,13 +21,13 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   const blogData = await sql(
-    'SELECT b.title, b.description FROM blogs as b WHERE b.slug = $1',
+    "SELECT b.title, b.description FROM blogs as b WHERE b.slug = $1",
     [params.id]
   );
 
   if (blogData.length === 0) {
     return {
-      title: 'Blog Not Found',
+      title: "Blog Not Found",
     };
   } else {
     return {
@@ -34,7 +37,7 @@ export async function generateMetadata({
         title: blogData[0].title,
         description: blogData[0].description.slice(0, 50),
       },
-      keywords: blogData[0].title.split(' ').join(','),
+      keywords: blogData[0].title.split(" ").join(","),
     };
   }
 }
@@ -42,14 +45,14 @@ export async function generateMetadata({
 const Page = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
 
-  const blogData = await sql('SELECT * FROM blogs WHERE slug = $1', [id]);
+  const blogData = await sql("SELECT * FROM blogs WHERE slug = $1", [id]);
 
   if (blogData.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
         <Link href="/">
           <p className="text-2xl text-[#282828] font-semibold">
-            🔍 Blog Not Found
+            🔍 Blog Not Found, Click me to go home
           </p>
         </Link>
       </div>
@@ -63,7 +66,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           <div className="flex py-5 bg-blend-saturation items-center justify-between mb-6 bleedBg">
             <h1 className="text-3xl font-bold">{blogData[0]?.title}</h1>
             <div className="flex gap-2">
-              {cookies().get('userId')?.value == blogData[0]?.authorId && (
+              {cookies().get("userId")?.value == blogData[0]?.authorId && (
                 <>
                   <Link
                     href={`/blog/edit/${blogData[0].id}`}
@@ -79,9 +82,17 @@ const Page = async ({ params }: { params: { id: string } }) => {
               )}
             </div>
           </div>
-          <p className="text-gray-500 mb-8">
-            {new Date(+blogData[0]?.createdAt).toDateString()}
-          </p>
+          <div className="mb-8 inline-flex justify-start items-center gap-2">
+            <Link
+              className="hover:text-[#0389ff]"
+              href={'/'}
+            >
+              <IoMdArrowRoundBack className="h-5 w-5" />
+            </Link>
+            <p className="text-gray-500">
+              {new Date(+blogData[0]?.createdAt).toDateString()}
+            </p>
+          </div>
           <article className="prose prose-zinc max-sm:prose-base contents textWarp">
             {Parser().parse(blogData[0]?.content)}
           </article>

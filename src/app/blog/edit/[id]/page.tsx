@@ -9,7 +9,7 @@ const EditNote = async ({ params }: { params: { id: string } }) => {
     return (
       <div className="flex justify-center items-center h-screen">
         <p className="text-2xl text-[#282828] font-semibold">
-          🔍 Blog Not Found
+          🔍 Blog Not Found, Click me to go home
         </p>
       </div>
     );
