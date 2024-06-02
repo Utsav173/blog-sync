@@ -1,4 +1,3 @@
 {
-  "buildCommand": "echo build",
-  "installCommand": "npm install"
+  "installCommand": "npm install --force"
 }

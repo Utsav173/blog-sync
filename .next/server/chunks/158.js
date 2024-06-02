@@ -1,1 +1,0 @@
-"use strict";exports.id=158,exports.ids=[158],exports.modules={2158:(e,t,s)=>{s.r(t),s.d(t,{default:()=>r});let r=(0,s(16592).createProxy)(String.raw`D:\internship\blog-sync\src\components\DeleteComp.tsx#default`)}};
