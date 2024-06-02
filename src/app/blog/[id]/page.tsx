@@ -8,8 +8,6 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { Suspense } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
-export const experimental_ppr = true;
-
 const CommentSec = dynamicImport(() => import("@/components/CommentSec"));
 const DeleteComp = dynamicImport(() => import("@/components/DeleteComp"));
 
