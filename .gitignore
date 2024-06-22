@@ -4,8 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-.env
-package-lock.json
+.yarn/install-state.gz
 
 # testing
 /coverage
@@ -36,5 +35,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.vercel
-.vscode
+# velite files
+.velite
+node_modules
+package-lock.json
