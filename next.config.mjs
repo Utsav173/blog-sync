@@ -8,8 +8,7 @@ export default {
     return config;
   },
   experimental: {
-    reactCompiler: true,
-    ppr: 'incremental',
+    ppr: true,
   },
   async redirects() {
     return [

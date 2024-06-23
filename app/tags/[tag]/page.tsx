@@ -1,6 +1,4 @@
-export const experimental_ppr = true
-
-import { posts } from "#site/content";
+import { posts } from "@site/content";
 import { PostItem } from "@/components/post-item";
 import { Tag } from "@/components/tag";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

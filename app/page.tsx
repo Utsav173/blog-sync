@@ -1,5 +1,5 @@
 import { getAllTags, sortPosts, sortTagsByCount } from '@/lib/utils';
-import { posts } from '#site/content';
+import { posts } from '@site/content';
 import { PostItem } from '@/components/post-item';
 import { QueryPagination } from '@/components/query-pagination';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

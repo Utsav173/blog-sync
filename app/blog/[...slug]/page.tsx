@@ -1,6 +1,4 @@
-export const experimental_ppr = true
-
-import { posts } from "#site/content";
+import { posts } from "@site/content";
 import { MDXContent } from "@/components/mdx-components";
 import { notFound } from "next/navigation";
 

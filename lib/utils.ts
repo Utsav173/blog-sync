@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { Post } from '#site/content';
+import { Post } from '@site/content';
 import { slug } from 'github-slugger';
 
 export function cn(...inputs: ClassValue[]) {
