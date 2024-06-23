@@ -1,0 +1,7 @@
+{
+  "headers": {
+    "link": "</_next/static/media/c9a5bc6a7c948fb0-s.p.woff2>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/woff2\", </_next/static/css/b9bf2a9e08770c84.css>; rel=preload; as=\"style\"; crossorigin=\"\"",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/page,_N_T_/"
+  },
+  "postponed": "{\"nextSegmentId\":1,\"rootFormatContext\":{\"insertionMode\":0,\"selectedValue\":null,\"tagScope\":0},\"progressiveChunkSize\":12800,\"resumableState\":{\"idPrefix\":\"\",\"nextFormID\":0,\"streamingFormat\":0,\"bootstrapScripts\":[{\"src\":\"/_next/static/chunks/webpack-67bc6dc7490cb60b.js\",\"crossOrigin\":\"\"}],\"instructions\":0,\"hasBody\":false,\"hasHtml\":false,\"unknownResources\":{\"font\":{\"/_next/static/media/c9a5bc6a7c948fb0-s.p.woff2\":[]}},\"dnsResources\":{},\"connectResources\":{\"default\":{},\"anonymous\":{},\"credentials\":{}},\"imageResources\":{},\"styleResources\":{\"/_next/static/css/b9bf2a9e08770c84.css\":[\"\",null]},\"scriptResources\":{},\"moduleUnknownResources\":{},\"moduleScriptResources\":{}},\"replayNodes\":[],\"replaySlots\":0}"
+}

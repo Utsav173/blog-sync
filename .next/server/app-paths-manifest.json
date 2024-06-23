@@ -1,0 +1,11 @@
+{
+  "/_not-found": "app/_not-found.js",
+  "/apple-icon.png/route": "app/apple-icon.png/route.js",
+  "/icon.png/route": "app/icon.png/route.js",
+  "/page": "app/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/blog/[...slug]/page": "app/blog/[...slug]/page.js",
+  "/tags/page": "app/tags/page.js",
+  "/tags/[tag]/page": "app/tags/[tag]/page.js",
+  "/api/og/route": "app/api/og/route.js"
+}
