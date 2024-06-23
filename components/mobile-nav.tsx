@@ -1,13 +1,14 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
-import { Button } from './ui/button';
-import { Menu } from 'lucide-react';
-import Link, { LinkProps } from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Icons } from './icons';
-import { siteConfig } from '@/config/site';
+import { useState } from "react";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Button } from "./ui/button";
+import { Menu } from "lucide-react";
+import Link, { LinkProps } from "next/link";
+import { useRouter } from "next/navigation";
+import Logo from "@/app/icon.png";
+import Image from "next/image";
+import { siteConfig } from "@/config/site";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -26,7 +27,7 @@ export function MobileNav() {
           href="/"
           className="flex items-center"
         >
-          <Icons.logo className="mr-2 h-4 w-4" />
+          <Image src={Logo} alt="logo" className="h-6 w-6" />
           <span className="font-bold">{siteConfig.name}</span>
         </MobileLink>
         <div className="flex flex-col gap-3 mt-3">
