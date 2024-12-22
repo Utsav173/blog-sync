@@ -7,12 +7,6 @@ export default {
     config.plugins.push(new VeliteWebpackPlugin());
     return config;
   },
-  experimental: {
-    reactCompiler: {
-      compilationMode: "annotation",
-    },
-    ppr: true,
-  },
   productionBrowserSourceMaps: true,
   async redirects() {
     return [

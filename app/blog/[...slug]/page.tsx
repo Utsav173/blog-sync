@@ -1,5 +1,3 @@
-export const experimental_ppr = true;
-
 import { posts } from "@site/content";
 import { MDXContent } from "@/components/mdx-components";
 import { notFound } from "next/navigation";
@@ -8,14 +6,12 @@ import "@/styles/mdx.css";
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 
-interface PostPageProps {
-  params: {
-    slug: string[];
-  };
-}
+type ParamsProps = Promise<{
+  slug: string[];
+}>;
 
-async function getPostFromParams(params: PostPageProps["params"]) {
-  const slug = params?.slug?.join("/");
+async function getPostFromParams(params: ParamsProps) {
+  const slug = (await params)?.slug?.join("/");
   const post = posts.find((post) => post.slugAsParams === slug);
 
   return post;
@@ -23,7 +19,9 @@ async function getPostFromParams(params: PostPageProps["params"]) {
 
 export async function generateMetadata({
   params,
-}: PostPageProps): Promise<Metadata> {
+}: {
+  params: ParamsProps;
+}): Promise<Metadata> {
   const post = await getPostFromParams(params);
 
   if (!post) {
@@ -60,13 +58,13 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams(): Promise<
-  PostPageProps["params"][]
-> {
-  return posts.map((post) => ({ slug: post.slugAsParams.split("/") }));
+export async function generateStaticParams() {
+  return posts.map((post) => ({
+    slug: post.slugAsParams.split("/"),
+  }));
 }
 
-export default async function PostPage({ params }: PostPageProps) {
+export default async function PostPage({ params }: { params: ParamsProps }) {
   const post = await getPostFromParams(params);
 
   if (!post || !post.published) {

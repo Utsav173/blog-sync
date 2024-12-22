@@ -6,16 +6,16 @@ import { getAllTags, getPostsByTagSlug, sortTagsByCount } from "@/lib/utils";
 import { slug } from "github-slugger";
 import { Metadata } from "next";
 
-interface TagPageProps {
-  params: {
-    tag: string;
-  };
-}
+type TagPageProps = Promise<{
+  tag: string;
+}>;
 
 export async function generateMetadata({
   params,
-}: TagPageProps): Promise<Metadata> {
-  const { tag } = params;
+}: {
+  params: TagPageProps;
+}): Promise<Metadata> {
+  const { tag } = await params;
   return {
     title: tag,
     description: `Posts on the topic of ${tag}`,
@@ -28,12 +28,12 @@ export const generateStaticParams = () => {
   return paths;
 };
 
-export default function TagPage({ params }: TagPageProps) {
-  const { tag } = params;
+export default async function TagPage({ params }: { params: TagPageProps }) {
+  const { tag } = await params;
   const title = tag.split("-").join(" ");
 
   const allPosts = getPostsByTagSlug(posts, tag);
-  const displayPosts = allPosts.filter(post => post.published);
+  const displayPosts = allPosts.filter((post) => post.published);
   const tags = getAllTags(posts);
   const sortedTags = sortTagsByCount(tags);
 

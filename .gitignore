@@ -38,3 +38,4 @@ next-env.d.ts
 # velite files
 node_modules
 package-lock.json
+bun.lockb
