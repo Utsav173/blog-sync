@@ -22,7 +22,8 @@
     "react": "^19.0.0-rc.1",
     "react-dom": "^19.0.0-rc.1",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "vercel": "^39.2.5"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
