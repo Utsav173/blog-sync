@@ -1,7 +1,7 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-import { Post } from '@site/content';
-import { slug } from 'github-slugger';
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+import { Post } from "@site/content";
+import { slug } from "github-slugger";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -9,10 +9,10 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatDate(input: string | number): string {
   const date = new Date(input);
-  return date.toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
+  return date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
   });
 }
 
@@ -51,9 +51,9 @@ export function getPostsByTagSlug(posts: Array<Post>, tag: string) {
 
 export function generateSlug(title: string) {
   // Convert to lowercase and replace non-alphanumeric characters with hyphens
-  let slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  let slug = title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   // Remove trailing hyphens
-  slug = slug.replace(/-+$/, '');
+  slug = slug.replace(/-+$/, "");
 
   return slug;
 }

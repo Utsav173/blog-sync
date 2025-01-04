@@ -39,7 +39,7 @@ export async function generateMetadata({
     title: post.title,
     description: post.description,
     authors: { name: siteConfig.author },
-    keywords: post.tags,
+    keywords: post ? [...(post.tags ?? []), ...siteConfig.keywords] : [],
     openGraph: {
       title: post.title,
       description: post.description,
@@ -53,6 +53,9 @@ export async function generateMetadata({
           alt: post.title,
         },
       ],
+    },
+    alternates: {
+      canonical: siteConfig.url,
     },
     twitter: {
       card: "summary_large_image",

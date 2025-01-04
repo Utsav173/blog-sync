@@ -9,13 +9,13 @@ import { siteConfig } from "@/config/site";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
-  title: siteConfig.name,
-  description: siteConfig.description,
+  title: `${siteConfig.name} | ${siteConfig.description}`,
+  description: `My ramblings on all things web dev, including the latest web technologies and frameworks. and gaming and AI.`,
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? siteConfig.url),
   verification: {
     google: "4b4H3hr3KG4V1J6eRzWhNZDf84yIPAcR1x32o0EpF8U",
   },
-  // Add these additional fields
+  keywords: siteConfig.keywords,
   robots: {
     index: true,
     follow: true,
@@ -30,36 +30,26 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteConfig.url,
   },
-  keywords: [
-    "web development",
-    "nextjs blog",
-    "tech blog",
-    "react blog platform",
-    "developer blog",
-    "programming tutorials",
-    "software engineering",
-    "coding tips",
-    "web development tutorials",
-    "frontend development",
-    "cricket 07 guides",
-    "gaming tutorials",
-    "EA sports games",
-    "cricket gaming",
-    "game modifications",
-    "offline AI",
-    "chrome AI features",
-    "browser AI",
-    "web AI integration",
-    "Gemini Nano",
-    "MDX blog",
-    "technical writing",
-    "developer resources",
-    "code tutorials",
-    "tech guides",
-  ],
-  authors: [{ name: siteConfig.author }],
-  creator: siteConfig.author,
-  publisher: siteConfig.name,
+  openGraph: {
+    type: "website",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    images: [
+      {
+        url: "/api/og?title=BlogSync",
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: ["/api/og?title=BlogSync"],
+  },
 };
 
 export const viewport: Viewport = {
