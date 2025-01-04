@@ -1,9 +1,14 @@
+import { cn } from "@/lib/utils";
 import React from "react";
 
 const Loader = () => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm z-50">
-      <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+    <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-50">
+      <div className={cn(
+        "w-12 h-12 rounded-full animate-spin",
+        "border-4 border-primary/10",
+        "border-t-primary"
+      )}></div>
     </div>
   );
 };
