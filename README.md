@@ -75,7 +75,7 @@ npm run build
 
 ## 💻 Technologies Used
 
-- [Next.js 14](https://nextjs.org/)
+- [Next.js 15](https://nextjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [ShadCN UI](https://ui.shadcn.com/)
