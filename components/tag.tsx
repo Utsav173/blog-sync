@@ -15,6 +15,7 @@ export function Tag({ tag, current, count }: TagProps) {
         className: "no-underline rounded-md",
       })}
       href={`/tags/${slug(tag)}`}
+      prefetch={true}
     >
       {tag} {count ? `(${count})` : null}
     </Link>

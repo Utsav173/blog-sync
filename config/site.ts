@@ -1,12 +1,11 @@
 export const siteConfig = {
   name: "BlogSync",
-  url: "https://example.com",
-  description: "Nextjs 14 blog using velite, tailwind and shadcn",
-  author: "BlogSync",
+  url: "https://blog-sync.vercel.app/",
+  description: "My ramblings on all things web dev.",
+  author: "Utsav Khatri",
   links: {
-    twitter: "https://twitter.com/jollyshopland",
-    github: "https://github.com/jolbol1",
-    personalSite: "https://jamesshopland.com",
+    twitter: "https://twitter.com/UtsavKhatri8",
+    github: "https://github.com/Utsav173",
   },
 };
 

@@ -5,6 +5,10 @@ import { notFound } from "next/navigation";
 import "@/styles/mdx.css";
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
+import { Suspense } from "react";
+import Loader from "@/components/loader";
+
+export const experimental_ppr = true;
 
 type ParamsProps = Promise<{
   slug: string[];
@@ -35,6 +39,7 @@ export async function generateMetadata({
     title: post.title,
     description: post.description,
     authors: { name: siteConfig.author },
+    keywords: post.tags,
     openGraph: {
       title: post.title,
       description: post.description,
@@ -72,8 +77,10 @@ export default async function PostPage({ params }: { params: ParamsProps }) {
   }
 
   return (
-    <article className="container py-6 prose dark:prose-invert max-w-3xl mx-auto">
-      <MDXContent code={post.body} />
-    </article>
+    <Suspense fallback={<Loader />}>
+      <article className="container py-6 prose dark:prose-invert max-w-3xl mx-auto">
+        <MDXContent code={post.body} />
+      </article>
+    </Suspense>
   );
 }

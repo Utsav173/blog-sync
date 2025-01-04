@@ -6,6 +6,8 @@ import { getAllTags, getPostsByTagSlug, sortTagsByCount } from "@/lib/utils";
 import { slug } from "github-slugger";
 import { Metadata } from "next";
 
+export const experimental_ppr = true
+
 type TagPageProps = Promise<{
   tag: string;
 }>;

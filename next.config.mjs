@@ -7,6 +7,9 @@ export default {
     config.plugins.push(new VeliteWebpackPlugin());
     return config;
   },
+  experimental: {
+    ppr: "incremental",
+  },
   productionBrowserSourceMaps: true,
   async redirects() {
     return [
