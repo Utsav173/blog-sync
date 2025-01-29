@@ -108,7 +108,7 @@
 :root {
   scrollbar-color: var(--scrollbar-color) transparent;
   scrollbar-width: thin;
-  scrollbar-face-color: aqua;
+  overflow-y: overlay;
 }
 
 .Documents-btn {

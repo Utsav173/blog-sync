@@ -22,7 +22,7 @@ export function PostItem({
     <article className="group flex flex-col gap-4 px-3 border-b border-gray-200 dark:border-gray-700 py-4 hover:bg-gray-950 dark:hover:bg-white transition duration-200 ease-in-out hover:rounded-md">
       <div>
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-white dark:group-hover:text-black">
-          <Link href={'/' + slug} className="hover:underline" prefetch={true}>
+          <Link href={"/" + slug} className="hover:underline" prefetch={false}>
             {title}
           </Link>
         </h2>
@@ -44,11 +44,11 @@ export function PostItem({
           </dd>
         </dl>
         <Link
-          href={'/' + slug}
+          href={"/" + slug}
           className={
-            'group-hover:text-black group-hover:dark:text-white custom-button inline-flex items-center gap-2 bg-black text-white group-hover:bg-white dark:bg-white dark:text-black dark:group-hover:bg-black rounded-full font-semibold py-2 whitespace-nowrap overflow-hidden text-ellipsis transition-colors duration-300 ease-in-out no-underline px-2'
+            "group-hover:text-black group-hover:dark:text-white custom-button inline-flex items-center gap-2 bg-black text-white group-hover:bg-white dark:bg-white dark:text-black dark:group-hover:bg-black rounded-full font-semibold py-2 whitespace-nowrap overflow-hidden text-ellipsis transition-colors duration-300 ease-in-out no-underline px-2"
           }
-          prefetch={true}
+          prefetch={false}
         >
           <span className="pl-2 max-sm:hidden">Read more</span>
           <span className="custom-button__icon-wrapper bg-white text-black dark:bg-black dark:text-white group-hover:bg-black group-hover:text-white group-hover:dark:bg-white group-hover:dark:text-black">

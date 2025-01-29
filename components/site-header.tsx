@@ -1,11 +1,6 @@
 import { MainNav } from './main-nav';
 import { ModeToggle } from './mode-toggle';
-// import { Icons } from "./icons";
-// import { siteConfig } from "@/config/site";
-// import { cn } from "@/lib/utils";
-// import Link from "next/link";
-// import { buttonVariants } from "./ui/button";
-// import { MobileNav } from "./mobile-nav";
+import ShareButton from './share-button';
 
 export function SiteHeader() {
   return (
@@ -14,6 +9,7 @@ export function SiteHeader() {
         <MainNav />
         <div className="flex flex-1 items-center justify-end space-x-2">
           <nav className="flex items-center">
+            <ShareButton />
             <ModeToggle />
           </nav>
         </div>

@@ -38,11 +38,11 @@ server.listen(3000);
 ## 2. Developer Experience: Tooling Showdown
 | Feature               | Bun 1.2                          | Node.js 21                   |
 |-----------------------|----------------------------------|------------------------------|
-| Package Installation  | `bun install` (76x faster npm)  | npm/yarn/pnpm                |
-| Cloud Integrations    | Native S3/Postgres clients      | AWS SDK + pg pool            |
-| Testing               | Built-in JUnit/LCOV reports     | Jest/Mocha + plugins         |
-| Lockfile              | Text-based `bun.lock`           | `package-lock.json`          |
-| TS Support            | Zero-config transpilation       | Requires `ts-node`/`swc`     |
+| Package Installation  | `bun install` (76x faster npm)   | npm/yarn/pnpm                |
+| Cloud Integrations    | Native S3/Postgres clients       | AWS SDK + pg pool            |
+| Testing               | Built-in JUnit/LCOV reports      | Jest/Mocha + plugins         |
+| Lockfile              | Text-based `bun.lock`            | `package-lock.json`          |
+| TS Support            | Zero-config transpilation        | Requires `ts-node`/`swc`     |
 
 Bun’s **unified toolkit** eliminates 83% of dev dependencies in typical projects . Its new text-based lockfile improves CI/CD transparency while maintaining 30% faster install speeds .
 
@@ -109,7 +109,7 @@ While Node.js dominates legacy systems, Bun captures **37% of new cloud-native p
 | Project Type          | Recommended Runtime | Key Reasons                 |
 |-----------------------|---------------------|-----------------------------|
 | Legacy Monoliths      | Node.js             | Ecosystem stability         |
-| Serverless Functions  | Bun                 | 380ms cold starts  |
+| Serverless Functions  | Bun                 | 380ms cold starts           |
 | Real-Time Analytics   | Node.js             | Stream processing maturity  |
 | AI Edge Deployments   | Bun                 | WASM + TensorFlow.js optim  |
 | Startup MVPs          | Bun                 | Rapid iteration + low cost  |
@@ -134,8 +134,10 @@ BUN_COMPAT=1 bun start
 
 ---
 
-> "Bun isn't just faster—it's redefining expectations for JavaScript runtimes. But Node.js' ecosystem remains unmatched for complex systems."  
-> – *Adapted from Sohu Tech Analysis 2025 *
+<Callout>
+ "Bun isn't just faster—it's redefining expectations for JavaScript runtimes. But Node.js' ecosystem remains unmatched for complex systems."  
+ – *Adapted from Sohu Tech Analysis 2025 *
+</Callout>
 
 **Like this analysis?**  
 💬 Debate your runtime choice below ⚡ Share with your team 📌 Bookmark for reference

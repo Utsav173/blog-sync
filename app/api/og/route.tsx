@@ -30,13 +30,12 @@ export async function GET(req: NextRequest) {
             height: "100%",
             display: "flex",
             flexDirection: "column",
-            padding: "48px",
-            background:
-              "linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #9333EA 100%)",
+            padding: "80px",
+            background: "#FAFAFA",
             position: "relative",
           }}
         >
-          {/* Mesh gradient overlay */}
+          {/* Super subtle grid background */}
           <div
             style={{
               position: "absolute",
@@ -44,9 +43,10 @@ export async function GET(req: NextRequest) {
               left: 0,
               right: 0,
               bottom: 0,
-              background:
-                "linear-gradient(to bottom right, rgba(255,255,255,0.3), rgba(255,255,255,0))",
-              zIndex: 1,
+              backgroundImage:
+                "linear-gradient(#E5E7EB 1px, transparent 1px), linear-gradient(90deg, #E5E7EB 1px, transparent 1px)",
+              backgroundSize: "40px 40px",
+              opacity: 0.1,
             }}
           />
 
@@ -58,6 +58,7 @@ export async function GET(req: NextRequest) {
               justifyContent: "space-between",
               height: "100%",
               position: "relative",
+              zIndex: 2,
             }}
           >
             {/* Header */}
@@ -65,34 +66,26 @@ export async function GET(req: NextRequest) {
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "12px",
+                justifyContent: "space-between",
               }}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                width="24"
-                height="24"
-              >
-                <path d="M4 11a9 9 0 0 1 9 9" />
-                <path d="M4 4a16 16 0 0 1 16 16" />
-                <circle cx="5" cy="19" r="1" />
-              </svg>
               <span
                 style={{
-                  color: "white",
-                  fontSize: "24px",
+                  color: "#18181B",
+                  fontSize: "14px",
                   fontWeight: "bold",
-                  letterSpacing: "-0.02em",
+                  letterSpacing: "0.2em",
                 }}
               >
-                Blog Sync
+                BLOG
               </span>
+              <div
+                style={{
+                  width: "4px",
+                  height: "4px",
+                  backgroundColor: "#18181B",
+                }}
+              />
             </div>
 
             {/* Main content */}
@@ -100,39 +93,36 @@ export async function GET(req: NextRequest) {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: "16px",
+                gap: "32px",
                 maxWidth: "85%",
+                marginTop: "-60px", // Pull up the content for better visual balance
               }}
             >
               <div
                 style={{
-                  color: "rgba(255, 255, 255, 0.8)",
-                  fontSize: "14px",
-                  fontWeight: "bold",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                BLOG POST •{" "}
-                {new Date().toLocaleDateString("en-US", {
-                  month: "long",
-                  day: "numeric",
-                  year: "numeric",
-                })}
-              </div>
-              <div
-                style={{
-                  color: "white",
+                  color: "#18181B",
                   fontSize: "52px",
                   fontWeight: "bold",
-                  lineHeight: 1.1,
-                  letterSpacing: "-0.02em",
-                  textShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                  lineHeight: 1.15,
+                  letterSpacing: "-0.03em",
                 }}
               >
                 {heading}
+              </div>
+              <div
+                style={{
+                  color: "#71717A",
+                  fontSize: "14px",
+                  fontWeight: "bold",
+                  letterSpacing: "0.1em",
+                }}
+              >
+                {new Date()
+                  .toLocaleDateString("en-US", {
+                    month: "long",
+                    year: "numeric",
+                  })
+                  .toUpperCase()}
               </div>
             </div>
 
@@ -142,26 +132,26 @@ export async function GET(req: NextRequest) {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                color: "rgba(255, 255, 255, 0.8)",
-                fontSize: "16px",
+                borderTop: "1px solid #E4E4E7",
+                paddingTop: "24px",
               }}
             >
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "8px" }}
+              <span
+                style={{
+                  color: "#71717A",
+                  fontSize: "13px",
+                  letterSpacing: "0.05em",
+                }}
               >
-                <span>{siteConfig.url}</span>
-              </div>
+                {siteConfig.url}
+              </span>
               <div
-                style={{ display: "flex", alignItems: "center", gap: "8px" }}
-              >
-                <img
-                  src="data:image/svg+xml;charset=utf-8,<svg fill='white' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z'/></svg>"
-                  width="20"
-                  height="20"
-                  style={{ opacity: 0.8 }}
-                />
-                <span>{siteConfig.links.github}</span>
-              </div>
+                style={{
+                  width: "16px",
+                  height: "1px",
+                  backgroundColor: "#18181B",
+                }}
+              />
             </div>
           </div>
         </div>
