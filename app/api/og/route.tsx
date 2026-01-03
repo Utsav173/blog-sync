@@ -15,19 +15,25 @@ export async function GET(req: NextRequest) {
 			return new Response('No title provided', { status: 400 });
 		}
 
-		const heading =
-			title.length > 140
-				? title.substring(0, 140).split(' ').slice(0, -1).join(' ') + '...'
-				: title;
+		console.log(`Generating OG image for title: ${title}`);
 
-		// Load fonts using path.join with process.cwd() for reliability in local and some build environments
-		const fontBold = await fs.readFile(
-			path.join(process.cwd(), 'assets/fonts/Inter-Bold.ttf')
-		);
+		// 1. Load Fonts (CDN)
+		const fontBold = await fetch(
+			'https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-700-normal.woff'
+		).then((res) => res.arrayBuffer());
 
-		const fontRegular = await fs.readFile(
-			path.join(process.cwd(), 'assets/fonts/Inter-Regular.ttf')
-		);
+		const fontRegular = await fetch(
+			'https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-400-normal.woff'
+		).then((res) => res.arrayBuffer());
+
+		// 2. Load Icon (Local FS)
+		// We read app/icon.png.
+		const iconPath = path.join(process.cwd(), 'app/icon.png');
+		const iconBuffer = await fs.readFile(iconPath);
+		const iconData = iconBuffer.buffer.slice(
+			iconBuffer.byteOffset,
+			iconBuffer.byteOffset + iconBuffer.byteLength
+		) as ArrayBuffer;
 
 		return new ImageResponse(
 			(
@@ -37,174 +43,110 @@ export async function GET(req: NextRequest) {
 						width: '100%',
 						display: 'flex',
 						flexDirection: 'column',
-						alignItems: 'flex-start',
-						justifyContent: 'space-between',
-						backgroundColor: '#09090b',
-						padding: '80px',
+						alignItems: 'center',
+						justifyContent: 'center',
+						backgroundColor: '#09090b', // zinc-950
 						position: 'relative',
 					}}
 				>
-					{/* Gradient Backgrounds - Simplified to avoid blur issues */}
+					{/* Background Pattern - Modern Glow */}
 					<div
 						style={{
 							position: 'absolute',
-							top: '-200px',
-							right: '-200px',
-							width: '600px',
-							height: '600px',
+							top: 0,
+							left: 0,
+							right: 0,
+							bottom: 0,
 							background:
-								'radial-gradient(circle, rgba(124, 58, 237, 0.15), transparent 70%)',
-							opacity: 0.8,
-						}}
-					/>
-					<div
-						style={{
-							position: 'absolute',
-							bottom: '-200px',
-							left: '-200px',
-							width: '600px',
-							height: '600px',
-							background:
-								'radial-gradient(circle, rgba(59, 130, 246, 0.15), transparent 70%)',
-							opacity: 0.8,
+								'radial-gradient(circle at 50% 100%, #1e1b4b 0%, #09090b 50%)', // subtle indigo glow from bottom
+							opacity: 0.5,
 						}}
 					/>
 
-					{/* Header */}
+					{/* Content Container */}
 					<div
 						style={{
 							display: 'flex',
-							justifyContent: 'space-between',
+							flexDirection: 'column',
 							alignItems: 'center',
-							width: '100%',
+							justifyContent: 'center',
+							gap: '40px',
 							zIndex: 10,
+							padding: '60px',
+							textAlign: 'center',
 						}}
 					>
+						{/* Brand / Icon */}
 						<div
 							style={{
 								display: 'flex',
 								alignItems: 'center',
-								gap: '12px',
+								gap: '16px',
+								border: '1px solid rgba(255,255,255,0.1)',
+								padding: '12px 24px',
+								borderRadius: '100px',
+								background: 'rgba(0,0,0,0.3)',
 							}}
 						>
-							<div
-								style={{
-									width: '24px',
-									height: '24px',
-									background:
-										'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
-									borderRadius: '6px',
-								}}
+							<img
+								width="32"
+								height="32"
+								src={iconData as any}
+								style={{ borderRadius: '8px' }}
 							/>
 							<span
 								style={{
-									color: '#e4e4e7',
+									color: '#e4e4e7', // zinc-200
 									fontSize: '24px',
 									fontFamily: 'Inter',
-									fontWeight: 700,
+									fontWeight: 400,
 									letterSpacing: '-0.02em',
 								}}
 							>
 								{siteConfig.name}
 							</span>
 						</div>
-						<span
-							style={{
-								color: '#a1a1aa',
-								fontSize: '20px',
-								fontFamily: 'Inter',
-								fontWeight: 400,
-							}}
-						>
-							@{siteConfig.links.twitter.split('/').pop()}
-						</span>
-					</div>
 
-					{/* Main Content */}
-					<div
-						style={{
-							display: 'flex',
-							flexDirection: 'column',
-							gap: '24px',
-							zIndex: 10,
-							maxWidth: '90%',
-						}}
-					>
-						<span
-							style={{
-								fontSize: '72px',
-								fontFamily: 'Inter',
-								fontWeight: 700,
-								color: '#ffffff',
-								lineHeight: 1.1,
-								letterSpacing: '-0.03em',
-								textShadow: '0 2px 10px rgba(0,0,0,0.5)',
-							}}
-						>
-							{heading}
-						</span>
-					</div>
-
-					{/* Footer */}
-					<div
-						style={{
-							display: 'flex',
-							justifyContent: 'space-between',
-							alignItems: 'center',
-							width: '100%',
-							zIndex: 10,
-							borderTop: '1px solid #27272a',
-							paddingTop: '32px',
-						}}
-					>
-						<div
-							style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}
-						>
-							<span
-								style={{
-									color: '#a1a1aa',
-									fontSize: '18px',
-									fontFamily: 'Inter',
-									fontWeight: 400,
-								}}
-							>
-								Written by
-							</span>
-							<span
-								style={{
-									color: '#e4e4e7',
-									fontSize: '20px',
-									fontFamily: 'Inter',
-									fontWeight: 700,
-								}}
-							>
-								{siteConfig.author}
-							</span>
-						</div>
+						{/* Title */}
 						<div
 							style={{
 								display: 'flex',
 								flexDirection: 'column',
-								gap: '4px',
-								alignItems: 'flex-end',
+								gap: '12px',
+								maxWidth: '900px',
 							}}
 						>
 							<span
 								style={{
-									color: '#a1a1aa',
-									fontSize: '18px',
-									fontFamily: 'Inter',
-									fontWeight: 400,
-								}}
-							>
-								Published
-							</span>
-							<span
-								style={{
-									color: '#e4e4e7',
-									fontSize: '20px',
+									fontSize: '80px',
 									fontFamily: 'Inter',
 									fontWeight: 700,
+									color: '#ffffff',
+									lineHeight: 1.05,
+									letterSpacing: '-0.04em',
+									textWrap: 'balance',
+									// Text Gradient for premium feel - Not supported well in satori yet without strict flex, leaving as solid white with opacity or just solid white for sharpness
+								}}
+							>
+								{title}
+							</span>
+						</div>
+
+						{/* Author / Date InfoPill */}
+						<div
+							style={{
+								display: 'flex',
+								alignItems: 'center',
+								gap: '12px',
+								marginTop: '20px',
+							}}
+						>
+							<span
+								style={{
+									color: '#71717a', // zinc-500
+									fontSize: '20px',
+									fontFamily: 'Inter',
+									fontWeight: 400,
 								}}
 							>
 								{new Date().toLocaleDateString('en-US', {
@@ -212,6 +154,24 @@ export async function GET(req: NextRequest) {
 									day: 'numeric',
 									year: 'numeric',
 								})}
+							</span>
+							<div
+								style={{
+									width: '4px',
+									height: '4px',
+									background: '#52525b',
+									borderRadius: '50%',
+								}}
+							/>
+							<span
+								style={{
+									color: '#e4e4e7',
+									fontSize: '20px',
+									fontFamily: 'Inter',
+									fontWeight: 400,
+								}}
+							>
+								{siteConfig.author}
 							</span>
 						</div>
 					</div>
