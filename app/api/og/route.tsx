@@ -20,6 +20,7 @@ export async function GET(req: NextRequest) {
 				? title.substring(0, 140).split(' ').slice(0, -1).join(' ') + '...'
 				: title;
 
+		// Load fonts using path.join with process.cwd() for reliability in local and some build environments
 		const fontBold = await fs.readFile(
 			path.join(process.cwd(), 'assets/fonts/Inter-Bold.ttf')
 		);
@@ -43,7 +44,7 @@ export async function GET(req: NextRequest) {
 						position: 'relative',
 					}}
 				>
-					{/* Gradient Backgrounds */}
+					{/* Gradient Backgrounds - Simplified to avoid blur issues */}
 					<div
 						style={{
 							position: 'absolute',
@@ -52,8 +53,8 @@ export async function GET(req: NextRequest) {
 							width: '600px',
 							height: '600px',
 							background:
-								'radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, rgba(9, 9, 11, 0) 70%)',
-							filter: 'blur(40px)',
+								'radial-gradient(circle, rgba(124, 58, 237, 0.15), transparent 70%)',
+							opacity: 0.8,
 						}}
 					/>
 					<div
@@ -64,8 +65,8 @@ export async function GET(req: NextRequest) {
 							width: '600px',
 							height: '600px',
 							background:
-								'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(9, 9, 11, 0) 70%)',
-							filter: 'blur(40px)',
+								'radial-gradient(circle, rgba(59, 130, 246, 0.15), transparent 70%)',
+							opacity: 0.8,
 						}}
 					/>
 
